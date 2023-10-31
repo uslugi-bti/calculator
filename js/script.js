@@ -58,7 +58,7 @@ for (let i = 0; i < actions.length; i++) {
 		for (let i = 0; i < actions.length; i++) {
 			actions[i].classList.remove("active");
 		}
-		if (firstValue[firstValue.length - 1] === "." || result.innerText === "Ошибка!") {
+		if (firstValue[firstValue.length - 1] === "." || result.innerText === "Ошибка!" || secondValue[secondValue.length - 1] === ".") {
 			return;
 		} else {
 			this.classList.add("active");
@@ -201,8 +201,13 @@ negate.addEventListener("click", function () {
 				return;
 			} else {
 				if (result.innerText[result.innerText.length - 1] === "%") {
-					result.innerText = "-" + result.innerText;
-					secondValue = -secondValue;
+					if (result.innerText.indexOf("-") === -1) {
+						result.innerText = "-" + result.innerText;
+						secondValue = -secondValue;
+					} else {
+						result.innerText = result.innerText.replace(/-/g, '');
+						secondValue = -secondValue;
+					}
 				} else {
 					secondValue = -secondValue;
 					result.innerText = secondValue;
@@ -251,6 +256,9 @@ equal.addEventListener("click", function () {
 	if (actionValue === "+") {
 		if (secondValue === "") {
 			firstValue = parseFloat((Number(firstValue) + Number(firstValue)).toFixed(10));
+			if (Math.floor(firstValue) !== firstValue) {
+				commas += ",";
+			}
 			secondValue = "";
 			actionValue = "";
 			if (firstValue === 0) {
@@ -260,19 +268,29 @@ equal.addEventListener("click", function () {
 				result.innerText = firstValue;
 			}
 		} else {
-			firstValue = parseFloat((Number(firstValue) + Number(secondValue)).toFixed(10));
-			secondValue = "";
-			actionValue = "";
-			if (firstValue === 0) {
-				firstValue = "";
-				result.innerText = "0";
+			if (secondValue[secondValue.length - 1] === ".") {
+				return;
 			} else {
-				result.innerText = firstValue;
+				firstValue = parseFloat((Number(firstValue) + Number(secondValue)).toFixed(10));
+				if (Math.floor(firstValue) !== firstValue) {
+					commas += ",";
+				}
+				secondValue = "";
+				actionValue = "";
+				if (firstValue === 0) {
+					firstValue = "";
+					result.innerText = "0";
+				} else {
+					result.innerText = firstValue;
+				}
 			}
 		}
 	} else if (actionValue === "-") {
 		if (secondValue === "") {
 			firstValue = parseFloat((Number(firstValue) - Number(firstValue)).toFixed(10));
+			if (Math.floor(firstValue) !== firstValue) {
+				commas += ",";
+			}
 			secondValue = "";
 			actionValue = "";
 			if (firstValue === 0) {
@@ -282,14 +300,21 @@ equal.addEventListener("click", function () {
 				result.innerText = firstValue;
 			}
 		} else {
-			firstValue = parseFloat((Number(firstValue) - Number(secondValue)).toFixed(10));
-			secondValue = "";
-			actionValue = "";
-			if (firstValue === 0) {
-				firstValue = "";
-				result.innerText = "0";
+			if (secondValue[secondValue.length - 1] === ".") {
+				return;
 			} else {
-				result.innerText = firstValue;
+				firstValue = parseFloat((Number(firstValue) - Number(secondValue)).toFixed(10));
+				if (Math.floor(firstValue) !== firstValue) {
+					commas += ",";
+				}
+				secondValue = "";
+				actionValue = "";
+				if (firstValue === 0) {
+					firstValue = "";
+					result.innerText = "0";
+				} else {
+					result.innerText = firstValue;
+				}
 			}
 		}
 	} else if (actionValue === "÷") {
@@ -304,6 +329,9 @@ equal.addEventListener("click", function () {
 				}
 			} else {
 				firstValue = parseFloat((Number(firstValue) / Number(firstValue)).toFixed(10));
+				if (Math.floor(firstValue) !== firstValue) {
+					commas += ",";
+				}
 				secondValue = "";
 				actionValue = "";
 				if (firstValue === 0) {
@@ -323,14 +351,21 @@ equal.addEventListener("click", function () {
 					actions[i].classList.remove("active");
 				}
 			} else {
-				firstValue = parseFloat((Number(firstValue) / Number(secondValue)).toFixed(10));
-				secondValue = "";
-				actionValue = "";
-				if (firstValue === 0) {
-					firstValue = "";
-					result.innerText = "0";
+				if (secondValue[secondValue.length - 1] === ".") {
+					return;
 				} else {
-					result.innerText = firstValue;
+					firstValue = parseFloat((Number(firstValue) / Number(secondValue)).toFixed(10));
+					if (Math.floor(firstValue) !== firstValue) {
+						commas += ",";
+					}
+					secondValue = "";
+					actionValue = "";
+					if (firstValue === 0) {
+						firstValue = "";
+						result.innerText = "0";
+					} else {
+						result.innerText = firstValue;
+					}
 				}
 			}
 		}
@@ -345,14 +380,18 @@ equal.addEventListener("click", function () {
 				result.innerText = firstValue;
 			}
 		} else {
-			firstValue = parseFloat((Number(firstValue) * Number(secondValue)).toFixed(10));
-			secondValue = "";
-			actionValue = "";
-			if (firstValue === 0) {
-				firstValue = "";
-				result.innerText = "0";
+			if (secondValue[secondValue.length - 1] === ".") {
+				return;
 			} else {
-				result.innerText = firstValue;
+				firstValue = parseFloat((Number(firstValue) * Number(secondValue)).toFixed(10));
+				secondValue = "";
+				actionValue = "";
+				if (firstValue === 0) {
+					firstValue = "";
+					result.innerText = "0";
+				} else {
+					result.innerText = firstValue;
+				}
 			}
 		}
 	}
