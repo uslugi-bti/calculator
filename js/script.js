@@ -76,7 +76,7 @@ for (let i = 0; i < actions.length; i++) {
 					actionValue = this.innerText;
 					result.innerText = firstValue;
 				} else if (actionValue === "÷") {
-					if (secondValue === "0") {
+					if (Number(secondValue) === 0) {
 						firstValue = "";
 						secondValue = "";
 						actionValue = "";
@@ -112,7 +112,7 @@ for (let i = 0; i < actions.length; i++) {
 					actionValue = this.innerText;
 					result.innerText = firstValue;
 				} else if (actionValue === "÷") {
-					if (secondValue === "0") {
+					if (Number(secondValue) === 0) {
 						firstValue = "";
 						secondValue = "";
 						actionValue = "";
@@ -319,7 +319,7 @@ equal.addEventListener("click", function () {
 		}
 	} else if (actionValue === "÷") {
 		if (secondValue === "") {
-			if (firstValue === "0" || result.innerText === "0") {
+			if (Number(firstValue) === 0 || result.innerText === "0") {
 				firstValue = "";
 				secondValue = "";
 				actionValue = "";
@@ -342,7 +342,7 @@ equal.addEventListener("click", function () {
 				}
 			}
 		} else {
-			if (secondValue === "0") {
+			if (Number(secondValue) === 0) {
 				firstValue = "";
 				secondValue = "";
 				actionValue = "";
