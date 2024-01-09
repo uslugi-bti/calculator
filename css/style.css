@@ -67,3 +67,18 @@ html, body {
 	text-align: left;
 	padding: 0 0 0 25px;
 }
+@media (max-width: 330px) {
+	.container {
+		max-width: 320px;
+	}
+	.container__body {
+		grid-template: repeat(5, 60px) / repeat(4, 60px);
+	}
+	.container__item {
+		line-height: 60px;
+		font-size: 27px;
+	}
+	.result span {
+		font-size: 65px;
+	}
+}
